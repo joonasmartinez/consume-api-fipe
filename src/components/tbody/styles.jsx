@@ -24,6 +24,6 @@ export const ContainerCard = styled.div`
     display:flex;
     margin: 10px;
     max-width: 1320px;
-    background-color:grey;
+    /* background-color:grey; */
 
 `

@@ -6,7 +6,8 @@ import TBody from "./components/tbody";
 function App() {
 
   const [search, setSearch] = useState('');
-  const [marcas, setMarcas] = useState("");
+  const [marcas, setMarcas] = useState('');
+  const [modelos, setModelos] = useState('');
 
   useEffect(()=>{
      const data = async () => { 
