@@ -11,6 +11,13 @@ const Global = createGlobalStyle`
         background:whitesmoke;
     }
 
+    .App{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+
+
 `
 
 export default Global;
