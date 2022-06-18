@@ -22,6 +22,8 @@ export const Input = styled.select`
 export const ContainerCard = styled.div`
 
     display:flex;
+    flex-wrap:wrap;
+    margin: 5px;
     margin: 10px;
     max-width: 1320px;
     /* background-color:grey; */

@@ -7,7 +7,10 @@ export const Card = styled.div`
     padding: 15px;
     flex-direction:column;
     justify-content: space-between;
-    box-shadow: 0px 0px 5px black;
+    background-color: white;
+    border: 1px solid black;
+    margin: 2px;
+    /* box-shadow: 0px 0px 5px black; */
     height: 150px;
 
 `
