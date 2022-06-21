@@ -9,6 +9,7 @@ const Global = createGlobalStyle`
     }
     body{
         background:whitesmoke;
+        
     }
 
     .App{

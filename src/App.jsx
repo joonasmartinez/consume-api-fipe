@@ -22,8 +22,8 @@ function App() {
     <div className="App">
       <Header />
       <TBody data={marcas}/>
-      <Footer/>
       <Global />
+      <Footer/>
     </div>
   )
 }

@@ -27,5 +27,6 @@ export const ContainerCard = styled.div`
     max-width: 1800px;
     justify-content: center;
     /* background-color:grey; */
+    min-height: 66.9vh;
 
 `
