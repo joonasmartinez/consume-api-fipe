@@ -6,7 +6,7 @@ export const Container = styled.div`
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    max-width: 1120px;
+    /* max-width: 1120px; */
     min-width: 820px;
 
 `
@@ -23,9 +23,9 @@ export const ContainerCard = styled.div`
 
     display:flex;
     flex-wrap:wrap;
-    margin: 5px;
     margin: 10px;
-    max-width: 1320px;
+    max-width: 1800px;
+    justify-content: center;
     /* background-color:grey; */
 
 `

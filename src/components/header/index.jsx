@@ -6,8 +6,8 @@ const Header = () => {
     <C.Nav>
         <C.Title>Carros FIPE</C.Title>
         <C.SearchSpace>
-            <C.Search placeholder='Buscar aqui' />
-            <C.ButtonSearch>Buscar</C.ButtonSearch>
+            <C.Search placeholder='Not working yet' disabled/>
+            <C.ButtonSearch disabled>Buscar</C.ButtonSearch>
         </C.SearchSpace>
     </C.Nav>
 
