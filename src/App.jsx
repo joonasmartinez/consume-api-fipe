@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Global from "./GlobalStyles";
 import Header from "./components/header";
 import TBody from "./components/tbody";
+import Footer from "./components/footer";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <Header />
       <TBody data={marcas}/>
+      <Footer/>
       <Global />
     </div>
   )

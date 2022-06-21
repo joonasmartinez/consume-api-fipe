@@ -7,7 +7,7 @@ const Header = () => {
         <C.Title>Carros FIPE</C.Title>
         <C.SearchSpace>
             <C.Search placeholder='Not working yet' disabled/>
-            <C.ButtonSearch disabled>Buscar</C.ButtonSearch>
+            <C.ButtonSearch>Buscar</C.ButtonSearch>
         </C.SearchSpace>
     </C.Nav>
 

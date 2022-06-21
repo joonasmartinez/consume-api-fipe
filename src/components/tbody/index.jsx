@@ -69,7 +69,7 @@ const TBody = (props)=>{
             <C.Input onChange={(e)=>{reloadRelacional(); setInput2(modelos.filter(item => item.nome == e.target.value)[0].codigo); load().then(res => console.log(res))}}>{modelos != '' ? modelos.map((item, index)=>(<option key={index}>{item.nome}</option>)) : (<option>Seleciona a marca</option>)}</C.Input>
             <h2>Selecione o ano</h2>
             <C.Input onChange={(e)=>{setInput3(anos.filter(item => item.nome == e.target.value)[0].codigo)}}>{anos != '' ? anos.map((item, index)=>(<option key={index}>{item.nome}</option>)) : (<option>Selecione o modelo</option>)}</C.Input>
-            {(input3 != '') ? (<C.ContainerCard><CardCar Title={`${carro.Marca} / ${carro.Modelo} (${carro.MesReferencia})`} Value={carro.Valor}/></C.ContainerCard>) : ('Aguardando...')}
+            {(input3 != '') ? (<C.ContainerCard><CardCar Title={`${carro.Marca} / ${carro.Modelo} (${carro.MesReferencia})`} Value={carro.Valor}/></C.ContainerCard>) : ('')}
             <C.ContainerCard>{todosAnos.length > 0 ? (todosAnos.map((item, index) => (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>))) : ("")}</C.ContainerCard>
         </C.Container>
     )
