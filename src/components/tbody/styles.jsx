@@ -8,6 +8,7 @@ export const Container = styled.div`
     justify-content:center;
     /* max-width: 1120px; */
     min-width: 820px;
+    min-height: 86.6vh;
 
 `
 
@@ -27,6 +28,15 @@ export const ContainerCard = styled.div`
     max-width: 1800px;
     justify-content: center;
     /* background-color:grey; */
-    min-height: 66.9vh;
+    margin-bottom: 5%;
+
+`
+
+export const ContainerCardSelected = styled.div`
+
+    margin: 10px;
+    max-width: 1800px;
+    justify-content: center;
+    margin: 2%;
 
 `
