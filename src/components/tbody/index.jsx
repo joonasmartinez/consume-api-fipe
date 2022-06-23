@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useEffect } from "react";
 import * as C from './styles'
 import CardCar from '../cardsCar';
+import Loading from "../loading";
 
 const TBody = (props)=>{
     
@@ -15,6 +16,7 @@ const TBody = (props)=>{
     const [anos, setAnos] = useState('');
     const [carro, setCarro] = useState('');
     const [todosAnos, setTodosAnos] = useState([]);
+    const [loading, setLoading] = useState(false);
     
     const loadRelacional = (url) => {
         const newArray = [];
@@ -55,6 +57,7 @@ const TBody = (props)=>{
             requestUrl = `${requestUrl}/${input2}/anos`;
             load().then(res => {setAnos(res);});
             console.log(requestUrl)
+            setLoading(true)
 
         }
         if(input3 != '') {
@@ -67,7 +70,7 @@ const TBody = (props)=>{
 
         try {
 
-            if(input2 != '') load().then(res => {todosAnos.length == 0 ? loadRelacional(res) : ('');});
+            if(input2 != '') load().then(res => {todosAnos.length == 0 ? loadRelacional(res) : ('');setLoading(false)});
             
             
         } catch (e) {
@@ -86,7 +89,10 @@ const TBody = (props)=>{
             <h2>Selecione o ano</h2>
             <C.Input onChange={(e)=>{setInput3(anos.filter(item => item.nome == e.target.value)[0].codigo)}}>{anos != '' ? anos.map((item, index)=>(<option key={index}>{item.nome}</option>)) : (<option>Selecione o modelo</option>)}</C.Input>
             {(input3 != '') ? (<C.ContainerCardSelected><CardCar Title={`${carro.Marca} / ${carro.Modelo} (${carro.MesReferencia})`} Value={carro.Valor}/></C.ContainerCardSelected>) : ('')}
-            <C.ContainerCard>{todosAnos.map((item, index) => (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>))}
+            <C.ContainerCard>{ loading ? (<Loading/>) : 
+            (todosAnos.map((item, index) => 
+                    (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>)))
+            }
               </C.ContainerCard>
         </C.Container>
         </>
