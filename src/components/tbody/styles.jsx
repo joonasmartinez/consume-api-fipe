@@ -40,3 +40,9 @@ export const ContainerCardSelected = styled.div`
     margin: 2%;
 
 `
+
+export const h3 = styled.h3`
+
+    margin: 10px;
+
+`
