@@ -7,8 +7,8 @@ export const Footer = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #747373;
-    height:65px;
+    background-color: #3791b4;
+    height:50px;
     width: 100%;
     color:white;
 

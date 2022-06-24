@@ -8,7 +8,7 @@ export const Container = styled.div`
     justify-content:center;
     /* max-width: 1120px; */
     min-width: 820px;
-    min-height: 86.6vh;
+    min-height: 88.1vh;
 
 `
 
