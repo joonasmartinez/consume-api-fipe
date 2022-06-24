@@ -60,10 +60,6 @@ const TBody = (props)=>{
         }
     }, [input3])
 
-    useEffect(()=>{
-
-    }, [modelos])
-
     
     return(
         <>
@@ -100,7 +96,6 @@ const TBody = (props)=>{
                     (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>))) 
             }
               </C.ContainerCard>
-
         </C.Container>
         </>
     )

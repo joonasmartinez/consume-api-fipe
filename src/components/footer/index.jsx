@@ -3,8 +3,8 @@ import * as C from './styles';
 
 const Footer = () => {
     return (
-    
-        <C.Footer>Developer Jonas Martinez</C.Footer>
+
+        <C.Footer>Web Developer - Jonas Martinez</C.Footer>
 
     )
 }
