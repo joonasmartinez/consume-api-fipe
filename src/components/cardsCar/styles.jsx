@@ -15,7 +15,10 @@ export const Card = styled.div`
     width: 200px;
     height: 150px;
     animation: aparecer 1s ease forwards;
-
+    
+    :hover{
+        background-color: #eeeeee;
+    }
     @keyframes aparecer {
         from{
             position: relative;
@@ -28,6 +31,7 @@ export const Card = styled.div`
             opacity: 100%;
         }
     }
+
 
 `
 
@@ -42,5 +46,8 @@ export const Value = styled.h3`
 
     text-align:center;
     /* color:white; */
+
+`
+export const Form = styled.form`
 
 `

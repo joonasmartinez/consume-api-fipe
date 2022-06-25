@@ -55,3 +55,32 @@ export const a = styled.a`
     color:white;
 
 `
+export const Form = styled.form`
+    display:flex;
+    height: 100%;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    width: 0%;
+`
+
+export const Options = styled.div`
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items:center;
+    max-height: 30px;
+    /* background-color: blue; */
+`
+
+export const OptionsSpace = styled.div`
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items:center;
+    width: 100%;
+    min-height: 30px;
+    background-color:white;
+    box-shadow: 0px 0px 5px black;
+    margin-top: 5px;
+`

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import * as C from './styles'
 import CardCar from '../cardsCar';
 import Loading from "../loading";
+import { render } from "react-dom";
 
 const TBody = (props)=>{
     
@@ -89,11 +90,12 @@ const TBody = (props)=>{
                 }}>
                     {anos != '' ? anos.map((item, index)=>(<option key={index}>{item.nome}</option>)) : (<option>Selecione o modelo</option>)}</C.Input>
 
+            {/* Carregamento Modelo e Ano selecionados */}
             {(input3 != '') ? (<C.ContainerCardSelected><CardCar Title={`${carro.Marca} / ${carro.Modelo} (ref.:${carro.MesReferencia})`} Value={carro.Valor}/></C.ContainerCardSelected>) : ('')}
             
             <C.ContainerCard>{ loading ? (<Loading/>) : 
             (todosAnos.map((item, index) =>
-                    (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>))) 
+                    (<CardCar key={index} Title={`${item.Modelo} (${item.AnoModelo})`} Value={item.Valor}/>)))
             }
               </C.ContainerCard>
         </C.Container>
