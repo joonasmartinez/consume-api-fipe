@@ -79,8 +79,26 @@ export const OptionsSpace = styled.div`
     justify-content:flex-start;
     align-items:center;
     width: 100%;
-    min-height: 30px;
+    min-height: 100px;
+    max-height: 100px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    ::-webkit-scrollbar{
+        width:0;
+        opacity:1;
+    }
+    height:auto;
     background-color:white;
     box-shadow: 0px 0px 5px black;
     margin-top: 5px;
+`
+export const CarSimilarSpace = styled.div`
+    margin-left: 5px;
+    max-height: 30px;
+    width: 100%;
+
+    :hover{
+        cursor:pointer;
+        background-color:#ebebeb;
+    }
 `

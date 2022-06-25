@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import * as C from './styles';
 import Loading from '../loading';
+import CarSimilarOption from '../CarSimilarOption';
+import { CarSimilarSpace } from './styles';
 
 const Header = () => {
 
@@ -8,29 +10,35 @@ const Header = () => {
     const [modelo, setModelo] = useState(['']);
     const [input, setInput] = useState('');
     const [options, setOptions] = useState('');
+    const [erro, setErro] = useState('');
+    const [busca, setBusca] = useState(['']);
+    const [buscando, setBuscando] = useState(false);
 
-    const searchValues = (termoBusca) => {
-        console.log("Entrou")
+    const searchValues = async (termoBusca) => {
+    
         termoBusca = termoBusca.split(' ')
 
-        try {
-            console.log("Buscando")
-            fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas`, { method: 'GET' }).then(res => res.json()).then(res => res.filter(item => item.nome.toLowerCase() == termoBusca[0].toLowerCase() ?
-                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res2 => res2.json()).then(res2 => res2.modelos.map(item => console.log(item)))
-                : ''));
-
-        } catch (e) {
-            console.log("Não foi possível buscar.")
+        if(buscando === false){
+            try {
+                console.log("Buscando")
+                await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas`, { method: 'GET' }).then(res => res.json()).then(res => res.filter(item => item.nome.toLowerCase() == termoBusca[0].toLowerCase() ?
+                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res2 => res2.json()).then(res2 => {setBusca(''), res2.modelos.map(item => {setBusca(prev=> [...prev,item])})})
+                    : setErro("Não foi possível localizar.")));
+            } catch (e) {
+                console.log("Erro na busca.")
+            }
+        }else{
+            console.log("Aguarde, buscando...")
         }
 
     }
 
-    const searchOptions = () => {
-
-        return (<Loading />)
+    const searchOptions = (termoBusca) => {
+        searchValues(termoBusca)
+        console.log(termoBusca)
 
     }
-
+    console.log(buscando)
     return (
         <C.Nav>
             <C.Title><C.a href=''>Carros FIPE</C.a></C.Title>
@@ -39,16 +47,16 @@ const Header = () => {
                     <C.Form onSubmit={(e) => e.preventDefault()}>
                         <C.Search placeholder='Ex.: Hyundai HB20' onChange={(e) => {
                             setInput(e.target.value);
-                            searchOptions();
-
+                            searchOptions(e.target.value);
+                            setBusca('');
                         }
 
                         } />
 
-                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input) }}>Buscar</C.ButtonSearch>
+                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input), console.log(busca, 'busca') }}>Buscar</C.ButtonSearch>
                     </C.Form>
                 </C.SearchSpace>
-            {input != "" ? (<C.OptionsSpace><Loading/></C.OptionsSpace>) : ("")}
+            {input != "" ? ( busca.length > 1  ?  <C.OptionsSpace>{busca.map((item, index) =><C.CarSimilarSpace onClick={()=>{setInput(item.nome)}}><CarSimilarOption key={index} Title={`${item.nome}`}/></C.CarSimilarSpace>)}</C.OptionsSpace> : <C.OptionsSpace><Loading/></C.OptionsSpace> ) : ("")}
             </C.Options>
         </C.Nav>
 
