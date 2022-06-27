@@ -79,15 +79,12 @@ export const OptionsSpace = styled.div`
     justify-content:flex-start;
     align-items:center;
     width: 100%;
-    min-height: 100px;
-    max-height: 100px;
+    min-height: ${(props) => props.height};
     overflow-y:scroll;
     overflow-x:hidden;
     ::-webkit-scrollbar{
         width:0;
-        opacity:1;
     }
-    height:auto;
     background-color:white;
     box-shadow: 0px 0px 5px black;
     margin-top: 5px;

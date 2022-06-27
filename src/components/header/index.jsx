@@ -3,6 +3,7 @@ import * as C from './styles';
 import Loading from '../loading';
 import CarSimilarOption from '../CarSimilarOption';
 import { CarSimilarSpace } from './styles';
+import TBody from '../tbody';
 
 const Header = () => {
 
@@ -33,6 +34,10 @@ const Header = () => {
 
     }
 
+    const carregar = () =>{
+        
+    }
+    carregar()
     const searchOptions = (termoBusca) => {
         searchValues(termoBusca)
         console.log(termoBusca)
@@ -45,18 +50,18 @@ const Header = () => {
             <C.Options>
                 <C.SearchSpace>
                     <C.Form onSubmit={(e) => e.preventDefault()}>
-                        <C.Search placeholder='Ex.: Hyundai HB20' onChange={(e) => {
+                        <C.Search key={'searchInput'} placeholder='Ex.: Hyundai HB20' onChange={(e) => {
                             setInput(e.target.value);
                             searchOptions(e.target.value);
                             setBusca('');
                         }
 
-                        } />
+                        } value={input}/>
 
-                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input), console.log(busca, 'busca') }}>Buscar</C.ButtonSearch>
+                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input) }}>Buscar</C.ButtonSearch>
                     </C.Form>
                 </C.SearchSpace>
-            {input != "" ? ( busca.length > 1  ?  <C.OptionsSpace>{busca.map((item, index) =><C.CarSimilarSpace onClick={()=>{setInput(item.nome)}}><CarSimilarOption key={index} Title={`${item.nome}`}/></C.CarSimilarSpace>)}</C.OptionsSpace> : <C.OptionsSpace><Loading/></C.OptionsSpace> ) : ("")}
+            {input != "" ? ( busca.length > 1  ?  <C.OptionsSpace height={'200px'} onBlur={()=>setBusca('')}>{busca.map((item, index) =><C.CarSimilarSpace onClick={()=>{setInput(item.nome), setBusca(['']), console.log(busca)}}><CarSimilarOption key={index} Title={`${item.nome}`}/></C.CarSimilarSpace>)}</C.OptionsSpace> : <C.OptionsSpace height={'30px'}><Loading/></C.OptionsSpace> ) : ("")}
             </C.Options>
         </C.Nav>
 

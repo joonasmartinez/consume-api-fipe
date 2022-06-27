@@ -35,6 +35,11 @@ const TBody = (props)=>{
         setTodosAnos([]);
     }
 
+    const loadTodosAnos = (data) =>{
+        alert("Carregado.")
+        return setTodosAnos(data)
+    }
+
     useEffect(() => {
         if(input != ''){
             setInput2('')
