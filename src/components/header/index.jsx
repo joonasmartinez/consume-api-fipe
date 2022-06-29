@@ -61,7 +61,7 @@ const Header = () => {
                         <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input) }}>Buscar</C.ButtonSearch>
                     </C.Form>
                 </C.SearchSpace>
-            {input != "" ? ( busca.length > 1  ?  <C.OptionsSpace height={'200px'} onBlur={()=>setBusca('')}>{busca.map((item, index) =><C.CarSimilarSpace onClick={()=>{setInput(item.nome), setBusca(['']), console.log(busca)}}><CarSimilarOption key={index} Title={`${item.nome}`}/></C.CarSimilarSpace>)}</C.OptionsSpace> : <C.OptionsSpace height={'30px'}><Loading/></C.OptionsSpace> ) : ("")}
+            {input != "" ? ( busca.length > 1  ?  <C.OptionsSpace onBlur={()=>{setBusca(''); setInput('')}} height={'200px'}>{busca.map((item, index) =><C.CarSimilarSpace onClick={()=>{setInput(item.nome), setBusca(['']), console.log(busca)}}><CarSimilarOption key={index} Title={`${item.nome}`}/></C.CarSimilarSpace>)}</C.OptionsSpace> : <C.OptionsSpace height={'30px'}><Loading /></C.OptionsSpace> ) : ("")}
             </C.Options>
         </C.Nav>
 
