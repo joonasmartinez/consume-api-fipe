@@ -28,6 +28,7 @@ const Header = () => {
         termoBusca.forEach(termo => { //Busca para cada palavra.
  
             setBuscando(true)
+            autoCompleteSearch()
 
             marcas.forEach((item, index) => {
 
@@ -42,9 +43,23 @@ const Header = () => {
             })
         });
         
-        if(!find){
-            setBuscando(false)
-        }
+        // if(!find){
+        //     setBuscando(false)
+        // }
+    }
+
+    const autoCompleteSearch = () => {
+        
+        marcas.forEach(item => {
+        
+            for(let a = 0; a < input.length; a++){
+                if(input[a] == item.nome[a]){
+                    
+                }
+            }
+
+        })
+
     }
 
 
