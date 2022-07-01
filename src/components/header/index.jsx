@@ -21,30 +21,30 @@ const Header = () => {
 
     const searchValues = async (termoBusca) => {
 
+        let find = false;
+
         termoBusca = termoBusca.split(' ');
 
         termoBusca.forEach(termo => { //Busca para cada palavra.
-
+ 
             setBuscando(true)
 
             marcas.forEach((item, index) => {
 
                 if (termo.toLowerCase() == item.nome.toLowerCase()) {
-
+                    find = true;
                     setInfoFet(prev => { return { ...prev, marca: item.codigo } })
 
                     fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })
 
                 }
 
-                if (marcas.length == (index + 1)) {
-
-                }
-
             })
-
         });
-
+        
+        if(!find){
+            setBuscando(false)
+        }
     }
 
 
@@ -53,18 +53,11 @@ const Header = () => {
         fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${infoFet.marca}/modelos/${code}/anos`, { method: 'GET' }).then(res => res.json()).then(res2 => setInfoFet(prev => { return { ...prev, ano: res2 } }));
     }
 
-    const noResult = (time) => {
-        setTimeout(() => {
-            console.log("Nada encontrado.")
-            setInput('')
-        }, time)
-    }
-
     useEffect(() => {
         console.log(infoFet, "Marca")
-
+        
     }, [infoFet.marca])
-
+    
     useEffect(() => {
         console.log(infoFet, "modelo")
 
