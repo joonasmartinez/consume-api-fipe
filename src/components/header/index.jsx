@@ -7,14 +7,12 @@ import { CarSimilarSpace } from './styles';
 const Header = () => {
 
     const [marcas, setMarcas] = useState('');
-    const [modelos, setModelos] = useState(['']);
+    const [modelos, setModelos] = useState([]);
     const [input, setInput] = useState('');
-    const [options, setOptions] = useState('');
     const [busca, setBusca] = useState(['']);
     const [autoComplete, setAutoComplete] = useState('');
     const [buscando, setBuscando] = useState(false);
     const [infoFet, setInfoFet] = useState({ marca: '', modelo: '', ano: '' })
-    const [data, setData] = useState({})
 
     useEffect(() => {
         fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas`, { method: 'GET' }).then(res => res.json()).then(res => setMarcas(res))
@@ -29,19 +27,21 @@ const Header = () => {
         termoBusca.forEach(termo => { //Busca para cada palavra.
  
             setBuscando(true)
-            autoCompleteSearch()
+            autoCompleteSearch(termoBusca)
+            if(infoFet.marca == ''){
 
-            marcas.forEach((item, index) => {
-
-                if (termo.toLowerCase() == item.nome.toLowerCase()) {
-                    find = true;
-                    setInfoFet(prev => { return { ...prev, marca: item.codigo } })
-
-                    fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })
-
-                }
-
-            })
+                    marcas.forEach(item => {
+        
+                        if (termo.toLowerCase() == item.nome.toLowerCase()) {
+                            find = true;
+                            setInfoFet(prev => { return { ...prev, marca: item.codigo } })
+        
+                            fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })
+        
+                        }
+        
+                    })
+            }
         });
 
         if(!find){
@@ -49,22 +49,30 @@ const Header = () => {
         }
     }
 
-    const autoCompleteSearch = () => {
-        
+    const autoCompleteSearch = (termoBusca) => {
+        setBusca('')
         setAutoComplete('')
-        if(modelos.length > 1) {
+        if(infoFet.marca != '') {
+            try{
 
-            modelos.forEach(item => {
-                if(input.toLocaleLowerCase().split('')[1].some((a, index)=>{return  a == item.nome.toLocaleLowerCase()[index]})){
-                    setAutoComplete(prev => [...prev, item])
-                }
+                modelos.modelos.map(item => 
+                    
+                    {if(input.split(' ')[1].toLocaleLowerCase().split('').every((a, index)=>{return  a == item.nome.toLocaleLowerCase()[index]})){
+                        console.log(item)
+                        setAutoComplete(prev => [...prev, item])
+                    }}
+    
+                    )
 
-            })
+            }catch(e){
+                // setTimeout(()=>{autoCompleteSearch('')}, 1000)
+            }
 
 
         }else{
             marcas.forEach(item => {
                 if(input.toLocaleLowerCase().split('').every((a, index)=>{return  a == item.nome.toLocaleLowerCase()[index]})){
+                    console.log(item)
                     setAutoComplete(prev => [...prev, item])
                 }
 
@@ -80,6 +88,7 @@ const Header = () => {
     }
 
     const searchModelsClick = () => {
+            setAutoComplete("")
             if(infoFet.marca != ''){setBusca('')
             fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${infoFet.marca}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })}
     }
@@ -134,7 +143,7 @@ const Header = () => {
                             <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), searchInputClick(item.codigo), setInfoFet(prev => { return { ...prev, modelo: item.codigo } }) }}>
                                 <CarSimilarOption key={index} Title={`${item.nome}`} />
                             </C.CarSimilarSpace>)}
-                    </C.OptionsSpace> : <C.OptionsSpace onBlur={() => { setBusca(''); setInput('') }} height={'100px'}>
+                    </C.OptionsSpace> : <C.OptionsSpace onBlur={() => { setBusca(''); setInput('') }} height={'200px'}>
                             {autoComplete.map((item, index) =>
                                 <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), searchModelsClick(),setInfoFet(prev => { return { ...prev, marca: item.codigo } }) }}>
                                     <CarSimilarOption key={index} Title={`${item.nome}`} />
