@@ -52,14 +52,11 @@ const Header = () => {
     const autoCompleteSearch = () => {
         
         setAutoComplete('')
-        console.log(autoComplete)
         if(modelos.length > 1) {
 
-            console.log(input.split(''))
             modelos.forEach(item => {
                 if(input.toLocaleLowerCase().split('')[1].some((a, index)=>{return  a == item.nome.toLocaleLowerCase()[index]})){
                     setAutoComplete(prev => [...prev, item])
-                    console.log(autoComplete)
                 }
 
             })
@@ -82,12 +79,14 @@ const Header = () => {
         fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${infoFet.marca}/modelos/${code}/anos`, { method: 'GET' }).then(res => res.json()).then(res2 => setInfoFet(prev => { return { ...prev, ano: res2 } }));
     }
 
+    const searchModelsClick = () => {
+            if(infoFet.marca != ''){setBusca('')
+            fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${infoFet.marca}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })}
+    }
+
     useEffect(() => {
         console.log(infoFet, "Marca")
-        if(infoFet.marca != '') {
-            setBusca('')
-            fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${infoFet.marca}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => { setModelos(res), res.modelos.forEach(item => setBusca(prev => [...prev, item])) })
-        }
+        searchModelsClick();
         
     }, [infoFet.marca])
     
@@ -137,7 +136,7 @@ const Header = () => {
                             </C.CarSimilarSpace>)}
                     </C.OptionsSpace> : <C.OptionsSpace onBlur={() => { setBusca(''); setInput('') }} height={'100px'}>
                             {autoComplete.map((item, index) =>
-                                <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), setInfoFet(prev => { return { ...prev, marca: item.codigo } }) }}>
+                                <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), searchModelsClick(),setInfoFet(prev => { return { ...prev, marca: item.codigo } }) }}>
                                     <CarSimilarOption key={index} Title={`${item.nome}`} />
                                 </C.CarSimilarSpace>)}
                         </C.OptionsSpace> : buscando ? <C.OptionsSpace height={'30px'}><Loading /></C.OptionsSpace> : '') : ("")}
