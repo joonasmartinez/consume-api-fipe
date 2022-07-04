@@ -9,6 +9,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [marcas, setMarcas] = useState('');
   const [modelos, setModelos] = useState('');
+  const [data, setData] = useState({ marca: '', modelo: '', ano: '' });
 
   useEffect(()=>{
      const data = async () => { 
@@ -17,11 +18,15 @@ function App() {
     }
      data();
   }, [])
+
+  const sendSearch = (dados) => {
+    setData(dados);
+  }
   
   return (
     <div className="App">
-      <Header />
-      <TBody data={marcas}/>
+      <Header sendSearch={sendSearch} />
+      <TBody data={marcas} fromSearch={data}/>
       <Global />
       <Footer/>
     </div>

@@ -4,7 +4,7 @@ import CardCar from '../cardsCar';
 import Loading from "../loading";
 import { render } from "react-dom";
 
-const TBody = (props)=>{
+const TBody = ({data, fromSearch})=>{
     
     const urlBase = "https://parallelum.com.br/fipe/api/v1/carros/marcas/"
     let requestUrl = '';
@@ -18,12 +18,13 @@ const TBody = (props)=>{
     const [todosAnos, setTodosAnos] = useState([]);
     const [loading, setLoading] = useState(false);
     
-    const loadRelacional = (url) => {
+    const loadRelacional = async (url) => {
         const newArray = [];
             url.forEach(element => {
-                 fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${input}/modelos/${input2}/anos/${element.codigo}`, {method:'GET'}).then(res => res.json()).then(res => newArray.push(res));
+                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${input}/modelos/${input2}/anos/${element.codigo}`, {method:'GET'}).then(res => res.json()).then(res => newArray.push(res));
             });
             setTodosAnos(newArray)
+            console.log(newArray)
     }
     
     const load = async () =>{
@@ -35,9 +36,9 @@ const TBody = (props)=>{
         setTodosAnos([]);
     }
 
-    const loadTodosAnos = (data) =>{
+    const loadTodosAnos = (filho) =>{
         alert("Carregado.")
-        return setTodosAnos(data)
+        return setTodosAnos(filho)
     }
 
     useEffect(() => {
@@ -51,6 +52,7 @@ const TBody = (props)=>{
     }, [input])
 
     useEffect(() => {
+        console.log('Todos anos alterado.')
         if(input2 != '' && input2 != undefined){
             requestUrl = `${input}/modelos/${input2}/anos`;
             load().then(res => {setAnos(res),  res.unshift({nome:""})});
@@ -66,6 +68,20 @@ const TBody = (props)=>{
         }
     }, [input3])
 
+    useEffect(()=>{
+        if(fromSearch.marca != '' && fromSearch.modelo != '' && fromSearch.ano != ''){
+            reloadRelacional();
+            let newArray = [];
+            fromSearch.ano.forEach((item)=>{
+                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${fromSearch.marca}/modelos/${fromSearch.modelo}/anos/${item.codigo}`, {method:'GET'}).then(res => res.json()).then(res => newArray.push(res));
+            })
+            console.log(newArray)
+            setTodosAnos(newArray)
+        }else{
+            console.log("From search está funcionando, aguardando alteração.")
+        }
+    }, [fromSearch])
+
     
     return(
         <>
@@ -74,11 +90,11 @@ const TBody = (props)=>{
             <C.h3>Selecione a marca</C.h3>
             <C.Input onChange={(e)=>{
                 reloadRelacional(); 
-                setInput(props.data.filter(item => item.nome == e.target.value)[0].codigo)
+                setInput(data.filter(item => item.nome == e.target.value)[0].codigo)
                 setInput2('')
                 setLoading(false)
                 }}>
-                    {props.data ? props.data.map((item)=>(<option key={item.codigo}>{item.nome}</option>)) : (<option>Carregando...</option>)}</C.Input>
+                    {data ? data.map((item)=>(<option key={item.codigo}>{item.nome}</option>)) : (<option>Carregando...</option>)}</C.Input>
 
             <C.h3>Selecione o modelo</C.h3>
             <C.Input onChange={(e)=>{
