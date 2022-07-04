@@ -6,9 +6,7 @@ import Footer from "./components/footer";
 
 function App() {
 
-  const [search, setSearch] = useState('');
   const [marcas, setMarcas] = useState('');
-  const [modelos, setModelos] = useState('');
   const [data, setData] = useState({ marca: '', modelo: '', ano: '' });
 
   useEffect(()=>{
