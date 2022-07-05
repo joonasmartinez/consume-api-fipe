@@ -56,7 +56,9 @@ const Header = ({sendSearch}) => {
             try {
 
                 modelos.modelos.map(item => {
-                    if (input.split(' ')[1].toLocaleLowerCase().split('').every((a, index) => { return a == item.nome.toLocaleLowerCase()[index] })) {
+                    // if (input.split(' ')[1].toLocaleLowerCase().split('').every((a, index) => { return a == item.nome.toLocaleLowerCase()[index] })) {
+                        if(item.nome.toLocaleLowerCase().includes(input.toLocaleLowerCase())){
+                        
                         // console.log(item)
                         setAutoComplete(prev => [...prev, item])
                     }
@@ -70,7 +72,8 @@ const Header = ({sendSearch}) => {
 
         } else {
             marcas.forEach(item => {
-                if (input.toLocaleLowerCase().split('').every((a, index) => { return a == item.nome.toLocaleLowerCase()[index] })) {
+                    if(item.nome.toLocaleLowerCase().includes(input.toLocaleLowerCase())){
+                        console.log("Have")
                     // console.log(item)
                     setAutoComplete(prev => [...prev, item])
                 }
@@ -136,7 +139,7 @@ return (
                     <C.Search key={'searchInput'} placeholder='Ex.: Hyundai HB20' onChange={(e) => {
                         setInput(e.target.value);
                         searchValues(e.target.value);
-                        if (input == '') setBusca('')
+                        if (input == '' && infoFet.marca == '') setBusca('')
                     }
 
                     } value={input} />
