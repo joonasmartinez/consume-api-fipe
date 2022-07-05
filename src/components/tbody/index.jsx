@@ -71,15 +71,16 @@ const TBody = ({data, fromSearch})=>{
     useEffect(()=>{
         if(fromSearch.marca != '' && fromSearch.modelo != '' && fromSearch.ano != ''){
             reloadRelacional();
-            let newArray = [];
-            fromSearch.ano.forEach((item)=>{
-                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${fromSearch.marca}/modelos/${fromSearch.modelo}/anos/${item.codigo}`, {method:'GET'}).then(res => res.json()).then(res => newArray.push(res));
+            const newArray = [];
+            setLoading(true)
+            setTodosAnos('')
+            fromSearch.ano.forEach((item, index)=>{
+                fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${fromSearch.marca}/modelos/${fromSearch.modelo}/anos/${item.codigo}`, {method:'GET'}).then(res => res.json()).then(res => {newArray.push(res);setLoading(false); setTodosAnos(prev => [...prev, res])});
             })
-            console.log(newArray)
-            setTodosAnos(newArray)
         }else{
             console.log("From search está funcionando, aguardando alteração.")
         }
+        todosAnos.forEach(item => console.log(item))
     }, [fromSearch])
 
     

@@ -121,7 +121,7 @@ useEffect(() => {
 }, [infoFet.ano])
 
 useEffect(() => {
-    if (input == '') {
+    if (input == '' && infoFet.marca == '') {
         setInfoFet({ marca: '', modelo: '', ano: '' });
     }
 
@@ -144,7 +144,7 @@ return (
 
                     } value={input} />
 
-                    <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input) }}>Buscar</C.ButtonSearch>
+                    <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input), setAutoComplete('') }}>Buscar</C.ButtonSearch>
                 </C.Form>
             </C.SearchSpace>
             {input != "" ?
