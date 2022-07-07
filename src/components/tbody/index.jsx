@@ -77,10 +77,7 @@ const TBody = ({data, fromSearch})=>{
             fromSearch.ano.forEach((item, index)=>{
                 fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${fromSearch.marca}/modelos/${fromSearch.modelo}/anos/${item.codigo}`, {method:'GET'}).then(res => res.json()).then(res => {newArray.push(res);setLoading(false); setTodosAnos(prev => [...prev, res])});
             })
-        }else{
-            console.log("From search está funcionando, aguardando alteração.")
         }
-        todosAnos.forEach(item => console.log(item))
     }, [fromSearch])
 
     
