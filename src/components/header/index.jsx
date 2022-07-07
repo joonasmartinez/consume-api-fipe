@@ -102,6 +102,12 @@ const Header = ({sendSearch}) => {
 
     }
 
+    const searchOnAPI = (termoBusca) => {
+        
+    }
+
+    // Object.values(infoFet).forEach(item => console.log(item, 'Aqui'))
+
 
 useEffect(() => {
     console.log(infoFet, "Marca")
@@ -121,7 +127,7 @@ useEffect(() => {
 }, [infoFet.ano])
 
 useEffect(() => {
-    if (input == '' && infoFet.marca == '') {
+    if (input == '') {
         setInfoFet({ marca: '', modelo: '', ano: '' });
     }
 
@@ -150,9 +156,9 @@ return (
             {input != "" ?
                 (busca.length > 1 || autoComplete.length > 0 ?
 
-                    busca.length > 1 ? <C.OptionsSpace onBlur={() => { setBusca(''); setInput('') }} height={'200px'}>
+                    busca.length > 1 ? <C.OptionsSpace onBlur={() => { setBusca(''); setInput(''); setAutoComplete('') }} height={'200px'}>
                         {busca.map((item, index) =>
-                            <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), searchInputClick(item.codigo), setInfoFet(prev => { return { ...prev, marca: item.codigo } }) }}>
+                            <C.CarSimilarSpace key={index} onClick={() => { setInput(item.nome), setBusca(['']), setAutoComplete(''), searchInputClick(item.codigo), setInfoFet(prev => { return { ...prev, marca: item.codigo } }) }}>
                                 <CarSimilarOption key={index} Title={`${item.nome}`} />
                             </C.CarSimilarSpace>)}
                     </C.OptionsSpace> : <C.OptionsSpace onBlur={() => { setBusca(''); setInput('') }} height={'200px'}>
