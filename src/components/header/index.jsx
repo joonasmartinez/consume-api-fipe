@@ -32,10 +32,9 @@ const Header = ({ sendSearch }) => {
         setBusca('')
         try{
             setSearching(true)
-            if(searching){
+            if(!searching){
                 marcas.forEach(item => {
                     fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => {res.modelos.forEach(car => car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) ? (setBusca(prev => [...prev, {marca:item, modelos:car}])) : '')})
-                    setSearching(false)
                 })
 
             }else{
@@ -61,25 +60,15 @@ const Header = ({ sendSearch }) => {
         setSending(false)
         if (input == '') {
             setInfoFet({ marca: '', modelo: '', ano: '' });
-        }
+        }else{
 
-        if (input != "") {
-            
-            if(searching === false){
-                console.log(busca,'entrou')
-                setTimeout(() => {
-                    console.log(busca,'ativando searchOnAPI')
-                    searchOnAPI()
-                }, 1000);
-
-            }
         }
 
     }, [input])
 
     useEffect(()=>{
         setSearching(false)
-        // if(busca.length==1) searchModelsClick();
+        if(busca.length==1) searchModelsClick();
         if(busca.length == 0) setBuscando(true);
         if(busca.length != 0) setBuscando(false);
     }, [busca])
@@ -92,7 +81,6 @@ const Header = ({ sendSearch }) => {
                     <C.Form onSubmit={(e) => e.preventDefault()}>
                         <C.Search key={'searchInput'} placeholder='Buscar veículo...' onChange={(e) => {
                             setInput(e.target.value);
-                            setBusca('')
                             if (input == '' && infoFet.marca == '') setBusca('')
                         }
 
