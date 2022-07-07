@@ -14,4 +14,18 @@ export const Model = styled.h2`
 `
 export const Card = styled.div`
     display:flex;
+    animation:entrada 0.5s linear forwards;
+    @keyframes entrada {
+     from{
+        position:relative;
+        left:-15px;
+        opacity:0;
+     }  
+     to{
+        position:relative;
+        left:0px;
+        opacity:1;
+     } 
+
+    }
 `
