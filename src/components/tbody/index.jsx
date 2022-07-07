@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import * as C from './styles'
 import CardCar from '../cardsCar';
 import Loading from "../loading";
-import { render } from "react-dom";
 
 const TBody = ({data, fromSearch})=>{
     
@@ -36,11 +35,6 @@ const TBody = ({data, fromSearch})=>{
         setTodosAnos([]);
     }
 
-    const loadTodosAnos = (filho) =>{
-        alert("Carregado.")
-        return setTodosAnos(filho)
-    }
-
     useEffect(() => {
         if(input != ''){
             setInput2('')
@@ -52,7 +46,6 @@ const TBody = ({data, fromSearch})=>{
     }, [input])
 
     useEffect(() => {
-        console.log('Todos anos alterado.')
         if(input2 != '' && input2 != undefined){
             requestUrl = `${input}/modelos/${input2}/anos`;
             load().then(res => {setAnos(res),  res.unshift({nome:""})});
