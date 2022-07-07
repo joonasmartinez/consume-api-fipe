@@ -100,13 +100,11 @@ const Header = ({ sendSearch }) => {
 
 
     useEffect(() => {
-        console.log(infoFet, "Marca")
         searchModelsClick();
 
     }, [infoFet.marca])
 
     useEffect(() => {
-        console.log(infoFet.modelo, "modelo")
         setAutoComplete('')
         searchModelsClick();
 
@@ -143,7 +141,7 @@ const Header = ({ sendSearch }) => {
 
                         } value={input} />
 
-                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input), setAutoComplete('') }}>Buscar</C.ButtonSearch>
+                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, searchValues(input), setAutoComplete(''); sendSearch(infoFet)}}>Buscar</C.ButtonSearch>
                     </C.Form>
                 </C.SearchSpace>
                 {input != "" && activeAutoComplete
