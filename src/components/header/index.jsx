@@ -11,9 +11,10 @@ const Header = ({ sendSearch }) => {
     const [buscando, setBuscando] = useState(false);
     const [infoFet, setInfoFet] = useState({ marca: '', modelo: '', ano: '' })
     const [sending, setSending] = useState(false);
-    const [searching, setSearching] = useState(false);
     const inputActual = useRef('');
-    const buscaActual = useRef('');
+    const buscaActual = useRef([]);
+    var searching = false;
+    const searchActive = useRef(false);
 
 
     useEffect(() => {
@@ -29,23 +30,44 @@ const Header = ({ sendSearch }) => {
     }
 
     const searchOnAPI = () => {
-        setBusca('')
-        try{
-            setSearching(true)
-            if(!searching){
-                marcas.forEach(item => {
-                    fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => {res.modelos.forEach(car => car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) ? (setBusca(prev => [...prev, {marca:item, modelos:car}])) : '')})
+        if(!searchActive.current==false){
+            searchActive.current = true;
+                try{
+                    setBusca('')
+                    buscaActual.current=[]
+                    marcas.forEach(item => {
+                    fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json()).then(res => 
+                    {
+                        res.modelos.forEach(
+                            car => 
+                            car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) 
+                            ? 
+                            (buscaActual.current.length < 10 ? (setBusca(prev => [...prev, {marca:item, modelos:car}]), buscaActual.current.push({marca:item, modelos:car})) : '') 
+                            :
+                             ''
+                             )})
+                             searchActive.current = false;
+                             
                 })
-
+            }catch(e){
+                console.log("Nenhum veiculo encontrado.")
+            }
             }else{
                 console.log('aguarde')
             }
-
-        }catch(e){
-            console.log('Não foi possível consultar.')
-        }
+            searchActive.current=false;
     }
-
+    // const searchOnAPI = async () => {
+    //             try{
+    //                 let resultado;
+    //                     marcas.forEach(async (item,index) => {
+    //                         resultado = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json())
+    //                         resultado.modelos.forEach(car => car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) ? (setBusca(prev => [...prev, {marca:item, modelos:car}])) : '')
+    //                 })
+    //             }catch(e){
+    //             console.log("Nenhum veiculo encontrado.")
+    //             }
+    // }
     useEffect(() => {
         if(infoFet.ano != '' && !sending) {
             setSending(true)
@@ -57,21 +79,28 @@ const Header = ({ sendSearch }) => {
 
     useEffect(() => {
         inputActual.current = input;
-        setSending(false)
-        if (input == '') {
-            setInfoFet({ marca: '', modelo: '', ano: '' });
-        }else{
+        if(searchActive.current==false){
+            searchActive.current=true;
+            console.log("Iniciando busca.")
+            setTimeout(()=>{
+    
+                searchOnAPI();
+                
+            }, 2000)
 
         }
-
+        setSending(false);
+        if (input == '') {
+            setInfoFet({ marca: '', modelo: '', ano: '' });
+        }
     }, [input])
 
     useEffect(()=>{
-        setSearching(false)
         if(busca.length==1) searchModelsClick();
         if(busca.length == 0) setBuscando(true);
         if(busca.length != 0) setBuscando(false);
     }, [busca])
+
 
     return (
         <C.Nav>
@@ -79,12 +108,13 @@ const Header = ({ sendSearch }) => {
             <C.Options>
                 <C.SearchSpace>
                     <C.Form onSubmit={(e) => e.preventDefault()}>
-                        <C.Search key={'searchInput'} placeholder='Buscar veículo...' onChange={(e) => {
+                        <C.Search key={'searchInput'} placeholder='Busque o modelo...' onChange={(e) => {
+                            buscaActual.current=[]
                             setInput(e.target.value);
                             if (input == '' && infoFet.marca == '') setBusca('')
                         }
 
-                        } value={input} />
+                        } value={input} autoFocus/>
 
                         <C.ButtonSearch onClick={(e) => { e.defaultPrevented, setBusca(''),searchOnAPI()}}>Buscar</C.ButtonSearch>
                     </C.Form>

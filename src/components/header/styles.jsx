@@ -88,6 +88,7 @@ export const OptionsSpace = styled.div`
     background-color:white;
     box-shadow: 0px 0px 5px black;
     margin-top: 5px;
+    z-index:0;
 `
 export const CarSimilarSpace = styled.div`
     margin-left: 5px;
