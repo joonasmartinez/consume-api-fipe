@@ -42,7 +42,7 @@ const Header = ({ sendSearch }) => {
                             car => 
                             car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) 
                             ? 
-                            (buscaActual.current.length < 10 ? (setBusca(prev => [...prev, {marca:item, modelos:car}]), buscaActual.current.push({marca:item, modelos:car})) : '') 
+                            (buscaActual.current.length < 50 ? (setBusca(prev => [...prev, {marca:item, modelos:car}]), buscaActual.current.push({marca:item, modelos:car})) : '') 
                             :
                              ''
                              )})
@@ -57,17 +57,7 @@ const Header = ({ sendSearch }) => {
             }
             searchActive.current=false;
     }
-    // const searchOnAPI = async () => {
-    //             try{
-    //                 let resultado;
-    //                     marcas.forEach(async (item,index) => {
-    //                         resultado = await fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${item.codigo}/modelos`, { method: 'GET' }).then(res => res.json())
-    //                         resultado.modelos.forEach(car => car.nome.toLocaleLowerCase().includes(inputActual.current.toLocaleLowerCase()) ? (setBusca(prev => [...prev, {marca:item, modelos:car}])) : '')
-    //                 })
-    //             }catch(e){
-    //             console.log("Nenhum veiculo encontrado.")
-    //             }
-    // }
+    
     useEffect(() => {
         if(infoFet.ano != '' && !sending) {
             setSending(true)
@@ -96,7 +86,16 @@ const Header = ({ sendSearch }) => {
     }, [input])
 
     useEffect(()=>{
-        if(busca.length==1) searchModelsClick();
+        console.log(busca)
+        searchModelsClick()
+        if(busca.length==1) {
+            // if(input != ''){
+            //     if(busca[0].marca.codigo != '' && busca[0].modelos.codigo != ''){
+
+            //         setInfoFet({ marca: busca[0].marca.codigo, modelo: busca[0].modelos.codigo, ano: '' });
+            //     }
+            // }
+        }
         if(busca.length == 0) setBuscando(true);
         if(busca.length != 0) setBuscando(false);
     }, [busca])
@@ -116,7 +115,7 @@ const Header = ({ sendSearch }) => {
 
                         } value={input} autoFocus/>
 
-                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented, setBusca(''),searchOnAPI()}}>Buscar</C.ButtonSearch>
+                        <C.ButtonSearch onClick={(e) => { e.defaultPrevented,searchOnAPI(),buscaActual.current=[]}}>Buscar</C.ButtonSearch>
                     </C.Form>
                 </C.SearchSpace>
                 {input != ""

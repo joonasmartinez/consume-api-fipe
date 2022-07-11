@@ -17,7 +17,14 @@ const Global = createGlobalStyle`
         flex-direction:column;
         align-items:center;
         min-height: 66.9vh;
+        min-width: 460px;
     }
+
+    @media(max-width:500px) {
+    .App{
+        /* min-height: 50%; */
+    }
+}
 
 
 `

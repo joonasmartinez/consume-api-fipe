@@ -7,8 +7,14 @@ export const Container = styled.div`
     align-items:center;
     justify-content:center;
     /* max-width: 1120px; */
-    min-width: 820px;
+    /* min-width: 820px; */
     min-height: 88.1vh;
+    
+    @media(max-width:500px) {
+    
+        width: 100vw;
+        min-height: 100vh;
+    }
 
 `
 

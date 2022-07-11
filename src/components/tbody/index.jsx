@@ -62,8 +62,8 @@ const TBody = ({data, fromSearch})=>{
     }, [input3])
 
     useEffect(()=>{
+        setTodosAnos([]);
         if(fromSearch.marca != '' && fromSearch.modelo != '' && fromSearch.ano != ''){
-            reloadRelacional();
             const newArray = [];
             setLoading(true)
             setTodosAnos('')
