@@ -71,7 +71,6 @@ const Header = ({ sendSearch }) => {
         inputActual.current = input;
         if(searchActive.current==false){
             searchActive.current=true;
-            console.log("Iniciando busca.")
             setTimeout(()=>{
     
                 searchOnAPI();
@@ -86,7 +85,6 @@ const Header = ({ sendSearch }) => {
     }, [input])
 
     useEffect(()=>{
-        console.log(busca)
         searchModelsClick()
         if(busca.length==1) {
             // if(input != ''){
