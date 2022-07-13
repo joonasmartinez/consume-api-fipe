@@ -22,7 +22,7 @@ const Global = createGlobalStyle`
 
     @media(max-width:500px) {
     .App{
-        /* min-height: 50%; */
+        width: 100%;
     }
 }
 

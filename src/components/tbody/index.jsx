@@ -63,6 +63,12 @@ const TBody = ({data, fromSearch})=>{
 
     useEffect(()=>{
         setTodosAnos([]);
+        setCarro('');
+        setInput('');
+        setInput2('');
+        setInput3('');
+        setModelos('');
+
         if(fromSearch.marca != '' && fromSearch.modelo != '' && fromSearch.ano != ''){
             const newArray = [];
             setLoading(true)

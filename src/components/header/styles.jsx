@@ -39,6 +39,7 @@ export const ButtonSearch = styled.button`
 
  export const SearchSpace = styled.div`
     display:flex;
+    width: 100%;
     height: 50%;
 `
 
