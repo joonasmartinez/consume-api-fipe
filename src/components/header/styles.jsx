@@ -5,8 +5,8 @@ export const Nav = styled.div`
     justify-content: space-around;
     align-items:center;
     width:100%;
-    background-color: #747373;
-    /* background-color: #3791b4; */
+    /* background-color: #747373; */
+    background-color: #3791b4;
     height:65px;
 `
 

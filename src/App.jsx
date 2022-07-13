@@ -19,7 +19,6 @@ function App() {
 
   const sendSearch = (dados) => {
     setData(dados);
-    console.log(dados)
   }
   
   return (

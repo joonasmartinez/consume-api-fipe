@@ -23,7 +23,6 @@ const TBody = ({data, fromSearch})=>{
                 fetch(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${input}/modelos/${input2}/anos/${element.codigo}`, {method:'GET'}).then(res => res.json()).then(res => newArray.push(res));
             });
             setTodosAnos(newArray)
-            console.log(newArray)
     }
     
     const load = async () =>{
