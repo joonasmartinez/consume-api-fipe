@@ -44,7 +44,6 @@ export const ButtonSearch = styled.button`
 
 
 export const Title = styled.h2`
-
     color:white;
 
 `
